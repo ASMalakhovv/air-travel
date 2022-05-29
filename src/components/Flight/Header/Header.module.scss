@@ -1,0 +1,16 @@
+@import "src/common/styles/scss/mixins";
+
+.headerContainer {
+  @include displayFlex(row,space-between);
+  @include heightWidth(auto,600px);
+  background: #afafaf;
+  .image {
+    @include heightWidth(50px, 50px);
+    background: #343131;
+  }
+
+  .price {
+    background: #006BB4;
+  }
+
+}

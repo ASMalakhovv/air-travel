@@ -1,0 +1,6 @@
+@import "src/common/styles/scss/mixins";
+
+.endpointsContainer {
+  @include displayFlex(row,space-between);
+  background: blueviolet;
+}

@@ -1,0 +1,11 @@
+@import '../../common/styles/scss/mixins';
+
+.sortingPanelBlock {
+  @include displayFlex(row);
+  background: #61dafb;
+
+  .sortingPanelContainer {
+    @include displayFlex(column);
+    background: coral;
+  }
+}

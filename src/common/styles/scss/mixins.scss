@@ -1,0 +1,17 @@
+@mixin displayFlex($flex-direction:row,$justify-content:flex-start,$align-items:flex-start,$flex-wrap:wrap) {
+  display: flex;
+  flex-direction: $flex-direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  flex-wrap: $flex-wrap;
+}
+
+@mixin heightWidth($height,$width) {
+  height: $height;
+  width: $width;
+}
+
+@mixin font($family:Arial,$size:18px) {
+  font-family: $family;
+  font-size: $size;
+}

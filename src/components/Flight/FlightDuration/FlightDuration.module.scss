@@ -1,0 +1,18 @@
+@import "src/common/styles/scss/mixins";
+
+.flightDurationContainer {
+  @include displayFlex(row,space-between);
+  background: aquamarine;
+
+  .departureTime {
+    @include displayFlex();
+  }
+
+  .flightTime {
+
+  }
+
+  .arrivalTime {
+    @include displayFlex();
+  }
+}
