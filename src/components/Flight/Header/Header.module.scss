@@ -1,16 +1,29 @@
 @import "src/common/styles/scss/mixins";
 
 .headerContainer {
-  @include displayFlex(row,space-between);
-  @include heightWidth(auto,600px);
-  background: #afafaf;
-  .image {
-    @include heightWidth(50px, 50px);
-    background: #343131;
+  @include displayFlex(row, space-between, center);
+  @include heightWidth(auto, 600px);
+  background: #006BB4;
+  color: white;
+
+  .carrier {
+    margin-left: 10px;
+    font-weight: bold;
   }
 
   .price {
-    background: #006BB4;
+    @include displayFlex(column, flex-start, flex-end);
+    margin-right: 10px;
+
+    p, h3 {
+      margin: 0;
+      font-weight: normal;
+    }
+
+    p {
+      font-size: 12px;
+    }
   }
+
 
 }

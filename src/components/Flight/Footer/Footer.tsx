@@ -1,10 +1,16 @@
 import React from 'react';
 import s from './Footer.module.scss'
 
-export const Footer = React.memo(() => {
+type PropsType = {
+    carrier: string
+}
+
+export const Footer = React.memo(({carrier, ...props}: PropsType) => {
+
+
     return (
         <div className={s.footer}>
-            Рейс выполняет Аэрофлот
+            Рейс выполняет: {carrier}
         </div>
     );
 });

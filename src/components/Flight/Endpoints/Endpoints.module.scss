@@ -1,6 +1,26 @@
 @import "src/common/styles/scss/mixins";
+@import "src/common/styles/scss/variables";
 
 .endpointsContainer {
-  @include displayFlex(row,space-between);
-  background: blueviolet;
+  @include displayFlex(row, space-around,center);
+  font-size: 18px;
+
+
+  .pointDeparture {
+    @include displayFlex();
+
+    div:nth-child(3) {
+      margin-left: 5px;
+      color: $colorBlue;
+    }
+  }
+
+  .arrivalPoint {
+    @include displayFlex();
+
+    div:nth-child(3) {
+      margin-left: 5px;
+      color: $colorBlue;
+    }
+  }
 }
