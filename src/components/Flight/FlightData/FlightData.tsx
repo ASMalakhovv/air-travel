@@ -12,6 +12,11 @@ type PropsType = {
     arrivalCity: string | undefined
     arrivalUid: string
     carrier: string
+    flightTime: string
+    departureTime: string
+    departureData: string
+    arrivalTime: string
+    arrivalData: string
 
 }
 
@@ -24,6 +29,11 @@ export const FlightData = React.memo((
         arrivalCity,
         arrivalUid,
         carrier,
+        flightTime,
+        departureTime,
+        departureData,
+        arrivalTime,
+        arrivalData,
         ...props
     }: PropsType) => {
     const peresadka = true
@@ -37,7 +47,13 @@ export const FlightData = React.memo((
                 departureCity={departureCity}
                 departureUid={departureUid}
             />
-            <FlightDuration/>
+            <FlightDuration
+            arrivalData={arrivalData}
+            arrivalTime={arrivalTime}
+            departureData={departureData}
+            flightTime={flightTime}
+            departureTime={departureTime}
+            />
             {peresadka && <Transfer/>}
             <Footer carrier={carrier}/>
         </div>

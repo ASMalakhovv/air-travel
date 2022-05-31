@@ -1,19 +1,35 @@
 import React from 'react';
 import s from './FlightDuration.module.scss'
 
-export const FlightDuration = React.memo(() => {
+type PropsType = {
+    flightTime: string
+    departureTime: string
+    departureData: string
+    arrivalTime: string
+    arrivalData: string
+}
+
+export const FlightDuration = React.memo((
+    {
+        flightTime,
+        departureTime,
+        departureData,
+        arrivalTime,
+        arrivalData,
+        ...props
+    }: PropsType) => {
     return (
         <div className={s.flightDurationContainer}>
             <div className={s.departureTime}>
-                <p>20:00</p>
-                <p>18 авг</p>
+                <p>{departureTime}</p>
+                <p>{departureData}</p>
             </div>
             <div className={s.flightTime}>
-                <p>3 часа</p>
+                <p>{flightTime}</p>
             </div>
             <div className={s.arrivalTime}>
-                <p>18 авг</p>
-                <p>23:00</p>
+                <p>{arrivalData}</p>
+                <p>{arrivalTime}</p>
             </div>
         </div>
     );

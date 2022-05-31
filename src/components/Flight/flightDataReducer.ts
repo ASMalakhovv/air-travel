@@ -2,6 +2,8 @@ import {AppRootStateType, AppThunk, AppThunkDispatch} from "../../app/store";
 import {flightsAPI} from "../../api/api";
 import {DataPromise} from "../../utils/getArrayFlights";
 import {FlightState, setFlight, SetIdFlight} from "./flightReducer";
+import {FilterOptions, FilterOptionsType} from "../Filtration/FilterOption/filterOptionReducer";
+import {calculationSelectedSettings} from "../../utils/calculationSelectedSettings";
 
 
 const initState = {}
@@ -67,7 +69,7 @@ export const flightDataReducer = (state: FlightDataInitState = initState, action
         }
         case 'flightData/SET-FLIGHTS': {
             const arrayIdFlights = action.payload.map(f => f.id)
-            const copyState = {...state}
+            let copyState:FlightDataInitState = {}
             arrayIdFlights.forEach((id: string, i: number) => {
                 copyState[id] = [action.payload[i]]
             })
@@ -87,8 +89,11 @@ const setFlightsData = (payload: DataPromise[]) => {
 }
 
 
-export const getFlights = (): AppThunk<void> => async (dispatch: AppThunkDispatch, getState: () => AppRootStateType) => {
-    const res = await flightsAPI.getFlights()
+export const getFlights = (count:number): AppThunk<void> => async (dispatch: AppThunkDispatch, getState: () => AppRootStateType) => {
+    const filtersID:string[] = getState().filtration.map(f => f.id)
+    const filtersOptions:FilterOptionsType = getState().filterOptions
+    const setting = calculationSelectedSettings(filtersID,filtersOptions)
+    const res = await flightsAPI.getFlights(count)
     const flights: FlightState[] = res.map(f => ({id: f.id}))
     dispatch(setFlight(flights))
     dispatch(setFlightsData(res))

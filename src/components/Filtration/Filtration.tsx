@@ -1,4 +1,4 @@
-import React, {HTMLInputTypeAttribute} from 'react';
+import React, {HTMLInputTypeAttribute, useState} from 'react';
 import {FilterOption} from './FilterOption/FilterOption';
 import s from './Filtration.module.scss'
 import {useAppSelector} from "../../hooks/useReactRedux";
@@ -11,6 +11,10 @@ type PropsType = {
 }
 
 export const Filtration = React.memo(({filterID, title, type, ...props}: PropsType) => {
+    //hooks
+    const [timeoutID, setTimeoutID] = useState<number | null>(null)
+
+
     //react-redux
     const arrayFilterOption: FilterOptions[] = useAppSelector(state => state.filterOptions[filterID])
     //здесь когда вмонтируется запросить авиакомпании
@@ -21,6 +25,10 @@ export const Filtration = React.memo(({filterID, title, type, ...props}: PropsTy
                              type={type}
                              option={o.title}
                              status={o.status}
+                             setTimeoutID={setTimeoutID}
+                             timeoutID={timeoutID}
+                             filterID={filterID}
+                             filterOptionID={o.id}
         />
     })
     return (

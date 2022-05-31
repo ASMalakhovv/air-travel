@@ -12,7 +12,7 @@ export type FiltrationType = {
     type: HTMLInputTypeAttribute | undefined
 }
 const initState: FiltrationType[] = [
-    {id: sortingID, title: 'Сортировать', type: 'radio'},
+    {id: sortingID, title: 'Сортировать', type: 'checkbox'},
     {id: filtrationID, title: 'Фильтровать', type: 'checkbox'},
     {id: priceID, title: 'Цена', type: 'number'},
     {id: airlinesID, title: 'Авиакомпании', type: 'checkbox'}

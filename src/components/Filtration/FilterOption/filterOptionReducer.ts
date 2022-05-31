@@ -15,13 +15,21 @@ const initState: FilterOptionsType = {
         {id: 1, title: 'От', status: false},
         {id: 2, title: 'До', status: false},
     ],
-    [airlinesID]: []
+    [airlinesID]: [],
+
 }
 
 export const filterOptionReducer = (state: FilterOptionsType = initState, action: FilterOptionAction): FilterOptionsType => {
     switch (action.type) {
         case 'filterOption/CHANGE-STATUS': {
-            return {...state}
+            debugger
+            const {filterOptionID, filterID, status} = action.payload
+            return {
+                ...state, [filterID]: state[filterID].map(o => {
+                        return o.id === filterOptionID ? {...o, status} : {...o,status:false}
+                    }
+                )
+            }
         }
         default:
             return state
@@ -29,7 +37,7 @@ export const filterOptionReducer = (state: FilterOptionsType = initState, action
 }
 
 //AC
-export const changeStatus = (payload: boolean) => {
+export const changeStatus = (payload: { status: boolean, filterID: string, filterOptionID: number }) => {
     return {
         type: 'filterOption/CHANGE-STATUS',
         payload

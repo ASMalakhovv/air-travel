@@ -24,6 +24,7 @@ type ThereBackData = {
     arrivalUid: string
     arrivalTime: string
     arrivalTimeData: { time: string, data: string }
+    flightDuration:string
 }
 
 export const formattingDataForMap = (data: DataPromise[]):DataForMap => {
@@ -41,6 +42,7 @@ export const formattingDataForMap = (data: DataPromise[]):DataForMap => {
         arrivalUid: arrivalThere.arrivalUidThere,
         arrivalTime: arrivalThere.arrivalTimeThere,
         arrivalTimeData: arrivalThere.timeData,
+        flightDuration:departureThere.duration
     }
     const obj2 = {
         departureCity: departureBack.departureCityBack,
@@ -53,6 +55,7 @@ export const formattingDataForMap = (data: DataPromise[]):DataForMap => {
         arrivalUid: arrivalBack.arrivalUidBack,
         arrivalTime: arrivalBack.arrivalTimeBack,
         arrivalTimeData: arrivalBack.timeData,
+        flightDuration:departureBack.duration
     }
     return {thereBack,thereBackFlightData:[obj1,obj2]}
 }

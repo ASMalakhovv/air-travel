@@ -12,19 +12,26 @@ type PropsType = {
 export const Flight = React.memo(({id, ...props}: PropsType) => {
     //react-redux
     const flight: DataPromise[] = useAppSelector(state => state.flightData[id])
-    debugger
+
+
     //преобразование для map
-    const formattingFlightData:DataForMap = formattingDataForMap(flight)
-    const {thereBack,thereBackFlightData} = formattingFlightData
-    const flightData = thereBackFlightData.map((f => {
-        return  <FlightData
-        departureUid={f.departureUid}
-        departureCity={f.departureCity}
-        departureAirport={f.departureAirport}
-        arrivalUid={f.arrivalUid}
-        arrivalCity={f.arrivalCity}
-        arrivalAirport={f.arrivalAirport}
-        carrier={thereBack.caption}
+    const formattingFlightData: DataForMap = formattingDataForMap(flight)
+    const {thereBack, thereBackFlightData} = formattingFlightData
+    const flightData = thereBackFlightData.map(((f, i) => {
+        return <FlightData
+            key={id + i}
+            departureUid={f.departureUid}
+            departureCity={f.departureCity}
+            departureAirport={f.departureAirport}
+            arrivalUid={f.arrivalUid}
+            arrivalCity={f.arrivalCity}
+            arrivalAirport={f.arrivalAirport}
+            carrier={thereBack.caption}
+            flightTime={f.flightDuration}
+            departureTime={f.departureTimeData.time}
+            departureData={f.departureTimeData.data}
+            arrivalData={f.arrivalTimeData.data}
+            arrivalTime={f.arrivalTimeData.time}
         />
     }))
     //action

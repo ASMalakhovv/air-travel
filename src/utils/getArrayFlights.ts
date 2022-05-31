@@ -22,6 +22,7 @@ export type DataPromise = {
         departureAirportThere: string
         departureUidThere: string
         departureTimeThere: string
+        duration:string
         timeData: {
             time: string
             data: string
@@ -42,6 +43,7 @@ export type DataPromise = {
         departureAirportBack: string
         departureUidBack: string
         departureTimeBack: string
+        duration:string
         timeData: {
             time: string
             data: string
@@ -59,14 +61,15 @@ export type DataPromise = {
     }
 }
 
-export const getArrayFlights = async (): Promise<DataPromise[]> => {
+export const getArrayFlights = async (count:number): Promise<DataPromise[]> => {
     const portionFlights: Array<Flight> = []
-    for (let i = 0; i < 2; i++) {  //здесь как вариант можно делать сортировку и наполнять его
+    for (let i = count - 2; i < count; i++) {  //здесь как вариант можно делать сортировку и наполнять его
         portionFlights.push(flightArray[i].flight)
     }
 
 
     let twoFlightData = []
+
 
     for (let i = 0; i < portionFlights.length; i++) {// здесь как вариант можно брать по одному элементу и создавать объект на выход
         let singleFlightData = {};
@@ -92,6 +95,7 @@ export const getArrayFlights = async (): Promise<DataPromise[]> => {
                     departureAirportThere: firstSegment[0].departureAirport.caption,
                     departureUidThere: firstSegment[0].departureAirport.uid,
                     departureTimeThere: firstSegment[0].departureDate,
+                    duration: String(portionFlights[i].legs[0].duration),
                 },
                 //туда прибытие
                 arrivalThere: {
@@ -111,6 +115,7 @@ export const getArrayFlights = async (): Promise<DataPromise[]> => {
                     departureAirportThere: firstSegment[0].departureAirport.caption,
                     departureUidThere: firstSegment[0].departureAirport.uid,
                     departureTimeThere: firstSegment[0].departureDate,
+                    duration: String(portionFlights[i].legs[0].duration),
                 },
                 //туда прибытие
                 arrivalThere: {
@@ -130,6 +135,7 @@ export const getArrayFlights = async (): Promise<DataPromise[]> => {
                     departureAirportBack: secondSegment[0].departureAirport.caption,
                     departureUidBack: secondSegment[0].departureAirport.uid,
                     departureTimeBack: secondSegment[0].departureDate,
+                    duration: String(portionFlights[i].legs[1].duration),
                 },
                 //обратно прибытие
                 arrivalBack: {
@@ -149,6 +155,7 @@ export const getArrayFlights = async (): Promise<DataPromise[]> => {
                     departureAirportBack: secondSegment[0].departureAirport.caption,
                     departureUidBack: secondSegment[0].departureAirport.uid,
                     departureTimeBack: secondSegment[0].departureDate,
+                    duration: String(portionFlights[i].legs[1].duration),
                 },
                 //обратно прибытие
                 arrivalBack: {
@@ -162,13 +169,13 @@ export const getArrayFlights = async (): Promise<DataPromise[]> => {
         // запушили в массив объект для полета
         twoFlightData.push(singleFlightData)
         //достали этот объект
-        const {departureThere, arrivalThere, departureBack, arrivalBack, thereBack} = twoFlightData[i] as DataPromise
+        const {departureThere, arrivalThere, departureBack, arrivalBack} = twoFlightData[i] as DataPromise
         //достаем из этого объекта время и дату для каждой точки (отправка/прилет)
         const {departureTimeThere} = departureThere
         const {arrivalTimeThere} = arrivalThere
         const {departureTimeBack} = departureBack
         const {arrivalTimeBack} = arrivalBack
-        const {duration} = thereBack
+
         //преобразуем время в вид отображения
         const arrayTimesDates = [departureTimeThere, arrivalTimeThere, departureTimeBack, arrivalTimeBack]
         const arrayTimesDatesDisplay: { time: string, data: string }[] = []
@@ -182,12 +189,16 @@ export const getArrayFlights = async (): Promise<DataPromise[]> => {
         departureBack.timeData = {...departureTimeDataBack}
         arrivalBack.timeData = {...arrivalTimeDataBack}
         //преобразуем общее время полета туда-обратно в вид отображения
-        const flightHours = Math.trunc(duration / 60)
-        const flightMinutes = duration - (flightHours * 60)
-        const flightDuration = `${flightHours} ч ${flightMinutes} мин`
-        thereBack.flightDuration = flightDuration
+        let arrayForDuration = [departureThere,departureBack]
+        arrayForDuration.forEach(d=>{
+            const duration = Number(d.duration)
+            const flightHours = Math.trunc(duration / 60)
+            const flightMinutes = duration - (flightHours * 60)
+            const flightDuration = `${flightHours} ч ${flightMinutes} мин`
+            d.duration = flightDuration
+        })
+
     }
-    const [there,back] = twoFlightData as DataPromise[]
 
     //время вылета и прилета в обе стороны
 

@@ -3,7 +3,7 @@ const initState: Array<FlightState> = []
 export const flightReducer = (state: Array<FlightState> = initState, action: FlightAction): Array<FlightState> => {
     switch (action.type) {
         case "flight/SET-FLIGHT": {
-            return [...state, ...action.payload]
+            return [...action.payload]
         }
         default :
             return state
