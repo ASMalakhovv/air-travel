@@ -1,12 +1,12 @@
 import React, {ChangeEvent, HTMLInputTypeAttribute, useEffect, useState} from 'react';
 import {useAppDispatch} from "../../../hooks/useReactRedux";
-import {changeStatus} from "./filterOptionReducer";
+import {changeStatus, changeStatusInput} from "./filterOptionReducer";
 
 type PropsType = {
     type: HTMLInputTypeAttribute | undefined
     option: string
     className?: string
-    status: boolean
+    status: boolean | number
     setTimeoutID: (timeoutID: number | null) => void
     timeoutID: number | null
     filterID: string
@@ -19,9 +19,10 @@ export const FilterOption = React.memo((
         filterID, filterOptionID, ...props
     }: PropsType) => {
     //hooks
-    const [valueChecked, setValueChecked] = useState(status)
+    const [valueChecked, setValueChecked] = useState(!!status)
+    const [inputNumber, setInputNumber] = useState(typeof status === 'number' ? status : 0)
     useEffect(() => {
-        setValueChecked(status)
+        setValueChecked(!!status)
     }, [status])
     //react-redux
     const dispatch = useAppDispatch()
@@ -29,13 +30,25 @@ export const FilterOption = React.memo((
 
     //callbacks
     const changeChecked = (e: ChangeEvent<HTMLInputElement>) => {
-        const status = e.currentTarget.checked
-        timeoutID && clearTimeout(timeoutID)
-        setValueChecked(status)
-        const newTimeoutID: number = +setTimeout(() => {
-            dispatch(changeStatus({status, filterOptionID, filterID}));
-        }, 1500)
-        setTimeoutID(newTimeoutID)
+        debugger
+        if (e.currentTarget.type === 'number') {
+            const status = Number(e.currentTarget.value)
+            //установить значение от или до
+            setInputNumber(status)
+            timeoutID && clearTimeout(timeoutID)
+            const newTimeoutID: number = +setTimeout(() => {
+                dispatch(changeStatusInput({status, filterOptionID, filterID}));
+            }, 1500)
+            setTimeoutID(newTimeoutID)
+        } else {
+            const status = e.currentTarget.checked
+            setValueChecked(status)
+            timeoutID && clearTimeout(timeoutID)
+            const newTimeoutID: number = +setTimeout(() => {
+                dispatch(changeStatus({status, filterOptionID, filterID}));
+            }, 1500)
+            setTimeoutID(newTimeoutID)
+        }
     }
 
 
@@ -45,6 +58,7 @@ export const FilterOption = React.memo((
                 <input type={type}
                        onChange={changeChecked}
                        checked={valueChecked}
+                       value={inputNumber}
                 />
                 <span>{option}</span>
             </label>
