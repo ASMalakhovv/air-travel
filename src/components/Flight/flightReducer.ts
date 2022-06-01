@@ -2,7 +2,7 @@ const initState: Array<FlightState> = []
 
 export const flightReducer = (state: Array<FlightState> = initState, action: FlightAction): Array<FlightState> => {
     switch (action.type) {
-        case "flight/SET-FLIGHT": {
+        case 'flight/SET-FLIGHT': {
             return [...action.payload]
         }
         default :
@@ -10,14 +10,13 @@ export const flightReducer = (state: Array<FlightState> = initState, action: Fli
     }
 }
 
-//Action Creator
+//action-creator
 export const setFlight = (payload: Array<FlightState>) => {
     return {
         type: 'flight/SET-FLIGHT',
         payload
     } as const
 }
-
 
 //types
 export type FlightState = { id: string }

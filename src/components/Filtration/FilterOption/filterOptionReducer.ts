@@ -1,5 +1,4 @@
-import {airlinesID, filtrationID, priceID, sortingID} from "../filtrationReducer";
-
+import {airlinesID, filtrationID, priceID, sortingID} from '../filtrationReducer';
 
 const initState: FilterOptionsType = {
     [sortingID]: [
@@ -21,14 +20,14 @@ const initState: FilterOptionsType = {
 
 export const filterOptionReducer = (state: FilterOptionsType = initState, action: FilterOptionAction): FilterOptionsType => {
     switch (action.type) {
-        case "filterOption/SET-AIRLINES": {
+        case 'filterOption/SET-AIRLINES': {
             return {
                 ...state, [airlinesID]: action.payload.map((a: string, i: number) => {
                     return {id: i + 1, title: a, status: false}
                 })
             }
         }
-        case "filterOption/CHANGE-STATUS-INPUT": {
+        case 'filterOption/CHANGE-STATUS-INPUT': {
             const {filterOptionID, filterID, status} = action.payload
             return {
                 ...state, [filterID]: state[filterID].map(o => {
@@ -60,7 +59,7 @@ export const filterOptionReducer = (state: FilterOptionsType = initState, action
     }
 }
 
-//AC
+//action-creator
 export const changeStatus = (payload: { status: boolean, filterID: string, filterOptionID: number }) => {
     return {
         type: 'filterOption/CHANGE-STATUS',
@@ -86,14 +85,12 @@ export const changeStatusAirlines = (payload: { status: boolean, filterID: strin
     } as const
 }
 
-
 //types
 export type FilterOptionAction = ChangeStatus | ChangeStatusInput | SetAirlines | ChangeStatusAirlines
 type ChangeStatus = ReturnType<typeof changeStatus>
 type ChangeStatusInput = ReturnType<typeof changeStatusInput>
 type SetAirlines = ReturnType<typeof setAirlines>
 type ChangeStatusAirlines = ReturnType<typeof changeStatusAirlines>
-
 export type FilterOptions = {
     id: number
     title: string

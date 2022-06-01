@@ -2,7 +2,6 @@ import React from 'react';
 import s from './Endpoints.module.scss'
 import arrow from '../../../assets/image/arrow.svg'
 
-
 type PropsType = {
     departureAirport: string | undefined
     departureCity: string | undefined

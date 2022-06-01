@@ -1,19 +1,16 @@
 export type AirTravel = {
     result: FlightsType
 }
-
 export type FlightsType = {
     flights: Array<FlightOption>
     bestPrices: any
 }
-
 export type FlightOption = {
     hasExtendedFare: boolean
     flight: Flight
     flightToken: any
 
 }
-
 export type Flight = {
     carrier: Carrier
     price: FlightPrice
@@ -80,13 +77,4 @@ export type Segments = {
     airline: Carrier
     starting: boolean
     arrivalAirport: Omit<Carrier, 'airlineCode'>
-}
-
-type BestPrices = {
-    ONE_CONNECTION: { bestFlights: Array<BestFlights> }
-    DIRECT: { bestFlights: Array<BestFlights> }
-}
-type BestFlights = {
-    carrier: Carrier
-    price: PriceTotal
 }

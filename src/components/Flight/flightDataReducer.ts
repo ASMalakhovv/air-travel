@@ -1,19 +1,17 @@
-import {AppRootStateType, AppThunk, AppThunkDispatch} from "../../app/store";
-import {flightsAPI} from "../../api/api";
-import {DataPromise} from "../../utils/getArrayFlights";
-import {FlightState, setFlight, SetIdFlight} from "./flightReducer";
-import {FilterOptions, FilterOptionsType, setAirlines} from "../Filtration/FilterOption/filterOptionReducer";
-import {calculationSelectedSettings} from "../../utils/calculationSelectedSettings";
-import {getAirlines} from "../../utils/getAirlines";
-import {airlinesID} from "../Filtration/filtrationReducer";
-
+import {AppRootStateType, AppThunk, AppThunkDispatch} from '../../app/store';
+import {flightsAPI} from '../../api/api';
+import {DataPromise} from '../../utils/getArrayFlights';
+import {FlightState, setFlight, SetIdFlight} from './flightReducer';
+import {FilterOptionsType, setAirlines} from '../Filtration/FilterOption/filterOptionReducer';
+import {calculationSelectedSettings} from '../../utils/calculationSelectedSettings';
+import {getAirlines} from '../../utils/getAirlines';
+import {airlinesID} from '../Filtration/filtrationReducer';
 
 const initState = {}
 
-
 export const flightDataReducer = (state: FlightDataInitState = initState, action: FlightDataAction): FlightDataInitState => {
     switch (action.type) {
-        case "flight/SET-FLIGHT": {
+        case 'flight/SET-FLIGHT': {
             const copyState = {...state}
             action.payload.forEach(e => {
                 copyState[e.id] = []
@@ -33,7 +31,7 @@ export const flightDataReducer = (state: FlightDataInitState = initState, action
     }
 }
 
-//AC
+//action-creator
 const setFlightsData = (payload: DataPromise[]) => {
     return {
         type: 'flightData/SET-FLIGHTS',
@@ -41,7 +39,7 @@ const setFlightsData = (payload: DataPromise[]) => {
     } as const
 }
 
-
+//thunk-creator
 export const getFlights = (count: number): AppThunk<void> => async (dispatch: AppThunkDispatch, getState: () => AppRootStateType) => {
     try {
         const filtersID: string[] = getState().filtration.map(f => f.id)
