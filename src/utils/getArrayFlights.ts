@@ -66,7 +66,6 @@ export type DataPromise = {
 }
 
 export const getArrayFlights = async (count: number, setting: FilterOptionsType): Promise<DataPromise[]> => {
-    debugger
     const portionFlights: Array<Flight> = []
     let arrayFlightsSort = [...flightArray]
 

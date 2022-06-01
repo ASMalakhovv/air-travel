@@ -1,0 +1,5 @@
+@import "src/common/styles/scss/mixins";
+
+.flightDataContainer {
+  @include displayFlex(column,flex-start,center);
+}

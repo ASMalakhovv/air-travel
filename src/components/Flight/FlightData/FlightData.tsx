@@ -3,6 +3,7 @@ import {Endpoints} from "../Endpoints/Endpoints";
 import {FlightDuration} from "../FlightDuration/FlightDuration";
 import {Transfer} from "../Transfer/Transfer";
 import {Footer} from "../Footer/Footer";
+import s from './FlightData.module.scss'
 
 type PropsType = {
     departureAirport: string | undefined
@@ -38,9 +39,9 @@ export const FlightData = React.memo((
         transfer,
         ...props
     }: PropsType) => {
-    const peresadka = true
+
     return (
-        <div>
+        <div className={s.flightDataContainer}>
             <Endpoints
                 arrivalAirport={arrivalAirport}
                 arrivalCity={arrivalCity}

@@ -4,6 +4,8 @@
 .endpointsContainer {
   @include displayFlex(row, space-around,center);
   font-size: 18px;
+  @include heightWidth(40px,750px);
+  border-bottom: 1px solid $colorGrey;
 
 
   .pointDeparture {

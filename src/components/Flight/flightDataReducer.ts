@@ -52,7 +52,7 @@ export const getFlights = (count: number): AppThunk<void> => async (dispatch: Ap
         }
         const filtersOptions: FilterOptionsType = getState().filterOptions
         const setting = calculationSelectedSettings(filtersID, filtersOptions)
-        debugger
+
         const res = await flightsAPI.getFlights(count, setting)
         const flights: FlightState[] = res.map(f => ({id: f.id}))
         dispatch(setFlight(flights))

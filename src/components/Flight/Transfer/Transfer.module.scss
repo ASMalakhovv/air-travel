@@ -1,0 +1,7 @@
+@import "src/common/styles/scss/variables";
+@import "src/common/styles/scss/mixins";
+
+.transferContainer {
+  @include displayFlex()
+
+}

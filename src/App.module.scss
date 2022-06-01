@@ -1,16 +1,21 @@
 @import "src/common/styles/scss/mixins.scss";
 
 .appBlock {
-  @include displayFlex(row, space-between);
-  background: blanchedalmond;
+  @include displayFlex(row, center);
+
 
   .filtrationContainer {
-    background: coral;
+
   }
 
   .flightContainer {
-    @include displayFlex(column);
-    @include heightWidth(auto,600px);
-    background: #61dafb;
+    @include displayFlex(column,center,center);
+    @include heightWidth(auto, 750px);
+    margin-left: 60px;
+
+    .button {
+      @include heightWidth(30px,250px);
+      font-size: 14px;
+    }
   }
 }

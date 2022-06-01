@@ -2,7 +2,7 @@
 
 .headerContainer {
   @include displayFlex(row, space-between, center);
-  @include heightWidth(auto, 600px);
+  @include heightWidth(auto, 750px);
   background: #006BB4;
   color: white;
 

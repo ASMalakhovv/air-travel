@@ -4,7 +4,7 @@ import {FlightData} from "./FlightData/FlightData";
 import {useAppSelector} from "../../hooks/useReactRedux";
 import {DataPromise} from "../../utils/getArrayFlights";
 import {DataForMap, formattingDataForMap} from "../../utils/formattingDataForMap";
-
+import s from './Flight.module.scss'
 type PropsType = {
     id: string
 }
@@ -38,7 +38,7 @@ export const Flight = React.memo(({id, ...props}: PropsType) => {
     //action
 
     return (
-        <div>
+        <div className={s.flightContainer}>
             <Header
                 carrier={thereBack.caption}
                 age={thereBack.age}
@@ -47,7 +47,7 @@ export const Flight = React.memo(({id, ...props}: PropsType) => {
                 passengerCountThereBack={thereBack.passengerCountThereBack}
             />
             {flightData}
-            <button>Выбрать</button>
+            <button>ВЫБРАТЬ</button>
         </div>
     );
 })

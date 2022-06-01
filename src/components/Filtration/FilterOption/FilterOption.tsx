@@ -35,7 +35,6 @@ export const FilterOption = React.memo((
     const changeChecked = (e: ChangeEvent<HTMLInputElement>) => {
         if(filterID === airlinesID){
             const status = e.currentTarget.checked
-            debugger
             setValueChecked(status)
             timeoutID && clearTimeout(timeoutID)
             const newTimeoutID: number = +setTimeout(() => {

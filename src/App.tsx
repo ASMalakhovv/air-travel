@@ -7,7 +7,6 @@ import {FiltrationType} from "./components/Filtration/filtrationReducer";
 import s from './App.module.scss'
 import {getFlights} from './components/Flight/flightDataReducer';
 import {FlightState} from "./components/Flight/flightReducer";
-import {getAirlines} from "./utils/getAirlines";
 
 
 export const App = React.memo(() => {
@@ -31,8 +30,9 @@ export const App = React.memo(() => {
     }, [count])
 
     //action
-    const filtration = filters.map(f => <Filtration key={f.id} filterID={f.id} title={f.title} type={f.type} count={count}/>)
-    const flight = flights.map(f => <Flight key={f.id} id={f.id} />)
+    const filtration = filters.map(f => <Filtration key={f.id} filterID={f.id} title={f.title} type={f.type}
+                                                    count={count}/>)
+    const flight = flights.map(f => <Flight key={f.id} id={f.id}/>)
 
     return (
         <div className={s.appBlock}>
@@ -41,8 +41,13 @@ export const App = React.memo(() => {
             </div>
             <div className={s.flightContainer}>
                 {flight}
-                <button onClick={increaseCounter}>Показать еще</button>
-                <button disabled={count === 2} onClick={decrementCounter}>Назад</button>
+                <button onClick={increaseCounter} className={s.button}>Показать еще</button>
+                <button disabled={count === 2}
+                        onClick={decrementCounter}
+                        className={s.button}
+                >
+                    Назад
+                </button>
             </div>
         </div>
     );
