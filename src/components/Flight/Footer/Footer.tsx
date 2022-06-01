@@ -7,10 +7,9 @@ type PropsType = {
 
 export const Footer = React.memo(({carrier, ...props}: PropsType) => {
 
-
     return (
         <div className={s.footer}>
-            Рейс выполняет: {carrier}
+            <p>Рейс выполняет: {carrier}</p>
         </div>
     );
 });

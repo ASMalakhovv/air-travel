@@ -6,7 +6,7 @@ export const Transfer = React.memo(() => {
         <div className={s.transferContainer}>
             <div className={s.line}></div>
             <div className={s.transfer}>1 пересадка</div>
-            <div></div>
+            <div className={s.line}></div>
         </div>
     );
 });

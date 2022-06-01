@@ -1,10 +1,10 @@
-@import "src/common/styles/scss/mixins";
-@import "src/common/styles/scss/variables";
+@import 'src/common/styles/scss/mixins';
+@import 'src/common/styles/scss/variables';
 
 .endpointsContainer {
-  @include displayFlex(row, space-around,center);
+  @include displayFlex(row, space-around, center);
   font-size: 18px;
-  @include heightWidth(40px,750px);
+  @include heightWidth(40px, 750px);
   border-bottom: 1px solid $colorGrey;
 
 

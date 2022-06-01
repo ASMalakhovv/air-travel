@@ -1,4 +1,4 @@
-@import "src/common/styles/scss/mixins";
+@import 'src/common/styles/scss/mixins';
 
 .headerContainer {
   @include displayFlex(row, space-between, center);

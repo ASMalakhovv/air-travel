@@ -1,16 +1,16 @@
-@import "src/common/styles/scss/mixins";
-@import "src/common/styles/scss/variables";
+@import 'src/common/styles/scss/mixins';
+@import 'src/common/styles/scss/variables';
 
 .flightDurationContainer {
-  @include displayFlex(row,space-around);
-  @include heightWidth(40px,750px);
+  @include displayFlex(row, space-around);
+  @include heightWidth(40px, 750px);
   font-size: 16px;
   font-weight: 600;
-  background: aquamarine;
 
   .departureTime {
     @include displayFlex();
-    p:nth-child(2){
+
+    p:nth-child(2) {
       color: $colorBlue;
       margin-left: 5px;
     }
@@ -22,7 +22,8 @@
 
   .arrivalTime {
     @include displayFlex();
-    p:nth-child(1){
+
+    p:nth-child(1) {
       color: $colorBlue;
       margin-right: 5px;
     }

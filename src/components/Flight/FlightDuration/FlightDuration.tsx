@@ -18,6 +18,7 @@ export const FlightDuration = React.memo((
         arrivalData,
         ...props
     }: PropsType) => {
+
     return (
         <div className={s.flightDurationContainer}>
             <div className={s.departureTime}>

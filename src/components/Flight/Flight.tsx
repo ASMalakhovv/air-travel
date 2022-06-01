@@ -1,10 +1,11 @@
 import React from 'react';
-import {Header} from "./Header/Header";
-import {FlightData} from "./FlightData/FlightData";
-import {useAppSelector} from "../../hooks/useReactRedux";
-import {DataPromise} from "../../utils/getArrayFlights";
-import {DataForMap, formattingDataForMap} from "../../utils/formattingDataForMap";
+import {Header} from './Header/Header';
+import {FlightData} from './FlightData/FlightData';
+import {useAppSelector} from '../../hooks/useReactRedux';
+import {DataPromise} from '../../utils/getArrayFlights';
+import {DataForMap, formattingDataForMap} from '../../utils/formattingDataForMap';
 import s from './Flight.module.scss'
+
 type PropsType = {
     id: string
 }
@@ -12,8 +13,6 @@ type PropsType = {
 export const Flight = React.memo(({id, ...props}: PropsType) => {
     //react-redux
     const flight: DataPromise[] = useAppSelector(state => state.flightData[id])
-
-
     //преобразование для map
     const formattingFlightData: DataForMap = formattingDataForMap(flight)
     const {thereBack, thereBackFlightData} = formattingFlightData
@@ -35,7 +34,6 @@ export const Flight = React.memo(({id, ...props}: PropsType) => {
             transfer={f.transfer}
         />
     }))
-    //action
 
     return (
         <div className={s.flightContainer}>

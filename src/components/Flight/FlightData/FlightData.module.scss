@@ -1,5 +1,8 @@
-@import "src/common/styles/scss/mixins";
+@import 'src/common/styles/scss/mixins';
+@import 'src/common/styles/scss/variables';
 
 .flightDataContainer {
-  @include displayFlex(column,flex-start,center);
+  @include displayFlex(column, flex-start, center);
+  margin-bottom: 10px;
+  border-bottom: 2px solid $colorBlue;
 }

@@ -1,13 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import './App.module.scss';
-import {Flight} from "./components/Flight/Flight";
-import {Filtration} from "./components/Filtration/Filtration";
-import {useAppDispatch, useAppSelector} from "./hooks/useReactRedux";
-import {FiltrationType} from "./components/Filtration/filtrationReducer";
+import {Flight} from './components/Flight/Flight';
+import {Filtration} from './components/Filtration/Filtration';
+import {useAppDispatch, useAppSelector} from './hooks/useReactRedux';
+import {FiltrationType} from './components/Filtration/filtrationReducer';
 import s from './App.module.scss'
 import {getFlights} from './components/Flight/flightDataReducer';
 import {FlightState} from "./components/Flight/flightReducer";
-
 
 export const App = React.memo(() => {
     //react-redux
@@ -28,7 +27,6 @@ export const App = React.memo(() => {
             setCount(count - 2)
         }
     }, [count])
-
     //action
     const filtration = filters.map(f => <Filtration key={f.id} filterID={f.id} title={f.title} type={f.type}
                                                     count={count}/>)

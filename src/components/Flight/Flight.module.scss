@@ -1,14 +1,13 @@
-@import "src/common/styles/scss/variables";
-@import "src/common/styles/scss/mixins";
+@import 'src/common/styles/scss/variables';
+@import 'src/common/styles/scss/mixins';
 
-.flightContainer{
-  @include displayFlex(column,flex-start,center);
-  @include heightWidth(400px,750px);
-  background: #61dafb;
-  border: 1px solid;
+.flightContainer {
+  @include displayFlex(column, flex-start, center);
+  @include heightWidth(400px, 750px);
+
 
   button {
-    @include heightWidth(40px,750px);
+    @include heightWidth(40px, 750px);
     background: orange;
     border: none;
     color: white;

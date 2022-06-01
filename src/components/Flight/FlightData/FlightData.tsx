@@ -1,8 +1,8 @@
 import React from 'react';
-import {Endpoints} from "../Endpoints/Endpoints";
-import {FlightDuration} from "../FlightDuration/FlightDuration";
-import {Transfer} from "../Transfer/Transfer";
-import {Footer} from "../Footer/Footer";
+import {Endpoints} from '../Endpoints/Endpoints';
+import {FlightDuration} from '../FlightDuration/FlightDuration';
+import {Transfer} from '../Transfer/Transfer';
+import {Footer} from '../Footer/Footer';
 import s from './FlightData.module.scss'
 
 type PropsType = {
@@ -18,7 +18,7 @@ type PropsType = {
     departureData: string
     arrivalTime: string
     arrivalData: string
-    transfer:boolean
+    transfer: boolean
 
 }
 
@@ -51,11 +51,11 @@ export const FlightData = React.memo((
                 departureUid={departureUid}
             />
             <FlightDuration
-            arrivalData={arrivalData}
-            arrivalTime={arrivalTime}
-            departureData={departureData}
-            flightTime={flightTime}
-            departureTime={departureTime}
+                arrivalData={arrivalData}
+                arrivalTime={arrivalTime}
+                departureData={departureData}
+                flightTime={flightTime}
+                departureTime={departureTime}
             />
             {transfer && <Transfer/>}
             <Footer carrier={carrier}/>

@@ -1,3 +1,11 @@
-.footer {
+@import 'src/common/styles/scss/mixins';
+@import 'src/common/styles/scss/variables';
 
+.footer {
+  @include displayFlex();
+  @include heightWidth(auto, 750px);
+
+  p {
+    margin: 0 10px;
+  }
 }

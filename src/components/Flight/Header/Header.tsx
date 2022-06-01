@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './Header.module.scss'
 
-
 type PropsType = {
     amount: string
     currencyCode: string
@@ -17,8 +16,8 @@ export const Header = React.memo((
         age,
         passengerCountThereBack,
         carrier,
-    ...props
-    }:PropsType) => {
+        ...props
+    }: PropsType) => {
 
     return (
         <div className={s.headerContainer}>

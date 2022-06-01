@@ -1,7 +1,16 @@
-@import "src/common/styles/scss/variables";
-@import "src/common/styles/scss/mixins";
+@import 'src/common/styles/scss/variables';
+@import 'src/common/styles/scss/mixins';
 
 .transferContainer {
-  @include displayFlex()
+  @include displayFlex(row, space-around, center);
+  @include heightWidth(auto, 500px);
 
+  .line {
+    width: 180px;
+    border-bottom: 1px solid $colorGrey;
+  }
+
+  .transfer {
+    color: orange;
+  }
 }

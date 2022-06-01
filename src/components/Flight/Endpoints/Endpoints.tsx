@@ -23,7 +23,6 @@ export const Endpoints = React.memo((
         ...props
     }: PropsType) => {
 
-
     return (
         <div className={s.endpointsContainer}>
             <div className={s.pointDeparture}>

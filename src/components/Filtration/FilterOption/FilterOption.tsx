@@ -1,8 +1,8 @@
 import React, {ChangeEvent, HTMLInputTypeAttribute, useEffect, useState} from 'react';
-import {useAppDispatch} from "../../../hooks/useReactRedux";
-import {changeStatus, changeStatusAirlines, changeStatusInput} from "./filterOptionReducer";
-import {getFlights} from "../../Flight/flightDataReducer";
-import {airlinesID} from "../filtrationReducer";
+import {useAppDispatch} from '../../../hooks/useReactRedux';
+import {changeStatus, changeStatusAirlines, changeStatusInput} from './filterOptionReducer';
+import {getFlights} from '../../Flight/flightDataReducer';
+import {airlinesID} from '../filtrationReducer';
 
 type PropsType = {
     type: HTMLInputTypeAttribute | undefined
@@ -29,11 +29,9 @@ export const FilterOption = React.memo((
     }, [status])
     //react-redux
     const dispatch = useAppDispatch()
-    const classNameOption = className ? className : ""
-
     //callbacks
     const changeChecked = (e: ChangeEvent<HTMLInputElement>) => {
-        if(filterID === airlinesID){
+        if (filterID === airlinesID) {
             const status = e.currentTarget.checked
             setValueChecked(status)
             timeoutID && clearTimeout(timeoutID)
@@ -64,7 +62,6 @@ export const FilterOption = React.memo((
             setTimeoutID(newTimeoutID)
         }
     }
-
 
     return (
         <div>

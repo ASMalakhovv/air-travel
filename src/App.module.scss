@@ -1,4 +1,4 @@
-@import "src/common/styles/scss/mixins.scss";
+@import 'src/common/styles/scss/mixins.scss';
 
 .appBlock {
   @include displayFlex(row, center);
@@ -9,12 +9,12 @@
   }
 
   .flightContainer {
-    @include displayFlex(column,center,center);
+    @include displayFlex(column, center, center);
     @include heightWidth(auto, 750px);
     margin-left: 60px;
 
     .button {
-      @include heightWidth(30px,250px);
+      @include heightWidth(30px, 250px);
       font-size: 14px;
     }
   }
