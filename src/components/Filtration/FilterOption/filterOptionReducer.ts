@@ -21,6 +21,13 @@ const initState: FilterOptionsType = {
 
 export const filterOptionReducer = (state: FilterOptionsType = initState, action: FilterOptionAction): FilterOptionsType => {
     switch (action.type) {
+        case "filterOption/SET-AIRLINES": {
+            return {
+                ...state, [airlinesID]: action.payload.map((a: string, i: number) => {
+                    return {id: i + 1, title: a, status: false}
+                })
+            }
+        }
         case "filterOption/CHANGE-STATUS-INPUT": {
             const {filterOptionID, filterID, status} = action.payload
             return {
@@ -30,11 +37,20 @@ export const filterOptionReducer = (state: FilterOptionsType = initState, action
             }
         }
         case 'filterOption/CHANGE-STATUS': {
-            debugger
+
             const {filterOptionID, filterID, status} = action.payload
             return {
                 ...state, [filterID]: state[filterID].map(o => {
                         return o.id === filterOptionID ? {...o, status} : {...o, status: false}
+                    }
+                )
+            }
+        }
+        case "filterOption/CHANGE-STATUS-AIRLINES": {
+            const {filterOptionID, filterID, status} = action.payload
+            return {
+                ...state, [filterID]: state[filterID].map(o => {
+                        return o.id === filterOptionID ? {...o, status} : o
                     }
                 )
             }
@@ -57,11 +73,27 @@ export const changeStatusInput = (payload: { status: number, filterID: string, f
         payload
     } as const
 }
+export const setAirlines = (payload: Array<string>) => {
+    return {
+        type: 'filterOption/SET-AIRLINES',
+        payload
+    } as const
+}
+export const changeStatusAirlines = (payload: { status: boolean, filterID: string, filterOptionID: number }) => {
+    return {
+        type: 'filterOption/CHANGE-STATUS-AIRLINES',
+        payload
+    } as const
+}
+
 
 //types
-export type FilterOptionAction = ChangeStatus | ChangeStatusInput
+export type FilterOptionAction = ChangeStatus | ChangeStatusInput | SetAirlines | ChangeStatusAirlines
 type ChangeStatus = ReturnType<typeof changeStatus>
 type ChangeStatusInput = ReturnType<typeof changeStatusInput>
+type SetAirlines = ReturnType<typeof setAirlines>
+type ChangeStatusAirlines = ReturnType<typeof changeStatusAirlines>
+
 export type FilterOptions = {
     id: number
     title: string

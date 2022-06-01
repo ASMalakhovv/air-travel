@@ -1,6 +1,8 @@
 import React, {ChangeEvent, HTMLInputTypeAttribute, useEffect, useState} from 'react';
 import {useAppDispatch} from "../../../hooks/useReactRedux";
-import {changeStatus, changeStatusInput} from "./filterOptionReducer";
+import {changeStatus, changeStatusAirlines, changeStatusInput} from "./filterOptionReducer";
+import {getFlights} from "../../Flight/flightDataReducer";
+import {airlinesID} from "../filtrationReducer";
 
 type PropsType = {
     type: HTMLInputTypeAttribute | undefined
@@ -11,12 +13,13 @@ type PropsType = {
     timeoutID: number | null
     filterID: string
     filterOptionID: number
+    count: number
 }
 
 export const FilterOption = React.memo((
     {
         type, option, className, status, setTimeoutID, timeoutID,
-        filterID, filterOptionID, ...props
+        filterID, filterOptionID, count, ...props
     }: PropsType) => {
     //hooks
     const [valueChecked, setValueChecked] = useState(!!status)
@@ -30,7 +33,17 @@ export const FilterOption = React.memo((
 
     //callbacks
     const changeChecked = (e: ChangeEvent<HTMLInputElement>) => {
-        debugger
+        if(filterID === airlinesID){
+            const status = e.currentTarget.checked
+            debugger
+            setValueChecked(status)
+            timeoutID && clearTimeout(timeoutID)
+            const newTimeoutID: number = +setTimeout(() => {
+                dispatch(changeStatusAirlines({status, filterOptionID, filterID}));
+                dispatch(getFlights(count))
+            }, 1500)
+            setTimeoutID(newTimeoutID)
+        }
         if (e.currentTarget.type === 'number') {
             const status = Number(e.currentTarget.value)
             //установить значение от или до
@@ -38,6 +51,7 @@ export const FilterOption = React.memo((
             timeoutID && clearTimeout(timeoutID)
             const newTimeoutID: number = +setTimeout(() => {
                 dispatch(changeStatusInput({status, filterOptionID, filterID}));
+                dispatch(getFlights(count))
             }, 1500)
             setTimeoutID(newTimeoutID)
         } else {
@@ -46,6 +60,7 @@ export const FilterOption = React.memo((
             timeoutID && clearTimeout(timeoutID)
             const newTimeoutID: number = +setTimeout(() => {
                 dispatch(changeStatus({status, filterOptionID, filterID}));
+                dispatch(getFlights(count))
             }, 1500)
             setTimeoutID(newTimeoutID)
         }

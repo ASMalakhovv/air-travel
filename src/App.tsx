@@ -7,15 +7,14 @@ import {FiltrationType} from "./components/Filtration/filtrationReducer";
 import s from './App.module.scss'
 import {getFlights} from './components/Flight/flightDataReducer';
 import {FlightState} from "./components/Flight/flightReducer";
+import {getAirlines} from "./utils/getAirlines";
 
 
 export const App = React.memo(() => {
-
     //react-redux
     const filters: FiltrationType[] = useAppSelector(state => state.filtration)
     const dispatch = useAppDispatch()
     const flights: FlightState[] = useAppSelector(state => state.flight)
-
     //hooks
     const [count, setCount] = useState<number>(2)
     useEffect(() => {
@@ -32,7 +31,7 @@ export const App = React.memo(() => {
     }, [count])
 
     //action
-    const filtration = filters.map(f => <Filtration key={f.id} filterID={f.id} title={f.title} type={f.type}/>)
+    const filtration = filters.map(f => <Filtration key={f.id} filterID={f.id} title={f.title} type={f.type} count={count}/>)
     const flight = flights.map(f => <Flight key={f.id} id={f.id} />)
 
     return (

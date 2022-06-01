@@ -8,9 +8,10 @@ type PropsType = {
     filterID: string
     title: string
     type: HTMLInputTypeAttribute | undefined
+    count:number
 }
 
-export const Filtration = React.memo(({filterID, title, type, ...props}: PropsType) => {
+export const Filtration = React.memo(({filterID, title, type,count, ...props}: PropsType) => {
     //hooks
     const [timeoutID, setTimeoutID] = useState<number | null>(null)
 
@@ -29,6 +30,7 @@ export const Filtration = React.memo(({filterID, title, type, ...props}: PropsTy
                              timeoutID={timeoutID}
                              filterID={filterID}
                              filterOptionID={o.id}
+                             count={count}
         />
     })
     return (

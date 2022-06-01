@@ -1,6 +1,8 @@
 import flights from '../state/flights.json'
 import {AirTravel, Flight, Segments} from "../entities/entities";
-import { v1 } from 'uuid';
+import {v1} from 'uuid';
+import {FilterOptionsType} from "../components/Filtration/FilterOption/filterOptionReducer";
+import {airlinesID, filtrationID, priceID, sortingID} from "../components/Filtration/filtrationReducer";
 
 
 const airTravel: AirTravel = flights
@@ -22,7 +24,7 @@ export type DataPromise = {
         departureAirportThere: string
         departureUidThere: string
         departureTimeThere: string
-        duration:string
+        duration: string
         timeData: {
             time: string
             data: string
@@ -43,7 +45,7 @@ export type DataPromise = {
         departureAirportBack: string
         departureUidBack: string
         departureTimeBack: string
-        duration:string
+        duration: string
         timeData: {
             time: string
             data: string
@@ -61,10 +63,55 @@ export type DataPromise = {
     }
 }
 
-export const getArrayFlights = async (count:number): Promise<DataPromise[]> => {
+export const getArrayFlights = async (count: number, setting: FilterOptionsType): Promise<DataPromise[]> => {
+    debugger
     const portionFlights: Array<Flight> = []
+    let arrayFlightsSort = [...flightArray]
+
+    //сортировка
+    if (setting[sortingID].length > 0) {
+        const id = setting[sortingID][0].id
+        if (id === 1) {
+            arrayFlightsSort.sort((a, b) => {
+                return Number(a.flight.price.total.amount) - Number(b.flight.price.total.amount)
+            })
+        }
+        if (id === 2) {
+            arrayFlightsSort.sort((a, b) => {
+                return Number(b.flight.price.total.amount) - Number(a.flight.price.total.amount)
+            })
+        }
+        if (id === 3) {
+            arrayFlightsSort.sort((a, b) => {
+                return (a.flight.legs[0].duration + a.flight.legs[1].duration) - Number(b.flight.legs[0].duration + b.flight.legs[1].duration)
+            })
+        }
+    }
+    if (setting[filtrationID].length > 0) {
+        const id = setting[filtrationID][0].id
+        if (id === 1) {
+            arrayFlightsSort = arrayFlightsSort.filter(f => f.flight.legs[0].segments.length > 1)
+        }
+        if (id === 2) {
+            arrayFlightsSort = arrayFlightsSort.filter(f => f.flight.legs[0].segments.length < 2)
+        }
+    }
+    if (setting[priceID].length > 0) {
+        const [from, upTo] = setting[priceID]
+        const priceFrom = from.status as number
+        const priceUpTo = upTo.status as number
+        if (priceUpTo !== 0) {
+            arrayFlightsSort = arrayFlightsSort.filter(f => {
+                return Number(f.flight.price.total.amount) > priceFrom && Number(f.flight.price.total.amount) < priceUpTo
+            })
+        }
+    }
+    if (setting[airlinesID].length > 0) {
+
+    }
+
     for (let i = count - 2; i < count; i++) {  //здесь как вариант можно делать сортировку и наполнять его
-        portionFlights.push(flightArray[i].flight)
+        portionFlights.push(arrayFlightsSort[i].flight)
     }
 
 
@@ -76,7 +123,7 @@ export const getArrayFlights = async (count:number): Promise<DataPromise[]> => {
         const firstSegment = portionFlights[i].legs[0].segments //данные полета туда
         const secondSegment = portionFlights[i].legs[1].segments //данные полета обратно
         singleFlightData = {                                     //заполняем общими данными туда-обратно
-            id:v1(),
+            id: v1(),
             thereBack: {
                 caption: portionFlights[i].carrier.caption,
                 totalPrice: portionFlights[i].price.total.amount,
@@ -189,8 +236,8 @@ export const getArrayFlights = async (count:number): Promise<DataPromise[]> => {
         departureBack.timeData = {...departureTimeDataBack}
         arrivalBack.timeData = {...arrivalTimeDataBack}
         //преобразуем общее время полета туда-обратно в вид отображения
-        let arrayForDuration = [departureThere,departureBack]
-        arrayForDuration.forEach(d=>{
+        let arrayForDuration = [departureThere, departureBack]
+        arrayForDuration.forEach(d => {
             const duration = Number(d.duration)
             const flightHours = Math.trunc(duration / 60)
             const flightMinutes = duration - (flightHours * 60)
@@ -199,86 +246,6 @@ export const getArrayFlights = async (count:number): Promise<DataPromise[]> => {
         })
 
     }
-
-    //время вылета и прилета в обе стороны
-
-
-    //общее время полета
-
-
-    //общее для туда-обратно
-    // const {amount: amountThereBack, currencyCode: currencyCodeThereBack} = portionFlights[0].price.total
-    // const {caption: adultThereBack} = portionFlights[0].price.passengerPrices[0].passengerType
-    // const passengerCountThereBack = portionFlights[0].price.passengerPrices[0].passengerCount
-    // const duration = portionFlights[0].legs[0].duration
-    // const carrier = portionFlights[0].carrier.caption
-
-
-    /* //туда отправление
-     const pointDepartureThere: Segments = portionFlights[0].legs[0].segments[0]
-     const departureCityThere = pointDepartureThere.departureCity?.caption
-     const departureAirportThere = pointDepartureThere.departureAirport.caption
-     const departureUidThere = pointDepartureThere.departureAirport.uid
-     const departureTimeThere = pointDepartureThere.departureDate //время отправления
-     //туда прибытие
-     const arrivalPointThere: Segments = portionFlights[0].legs[0].segments[1]
-     const arrivalCityThere = arrivalPointThere.arrivalCity?.caption
-     const arrivalAirportThere = arrivalPointThere.arrivalAirport.caption
-     const arrivalUidThere = pointDepartureThere.arrivalAirport.uid
-     const arrivalTimeThere = pointDepartureThere.arrivalDate // время прибытия после пересадки
-     //обратно отправление
-     const pointDepartureBack: Segments = portionFlights[0].legs[1].segments[0]
-     const departureCityBack = pointDepartureBack.departureCity?.caption
-     const departureAirportBack = pointDepartureBack.departureAirport.caption
-     const departureUidBack = pointDepartureBack.departureAirport.uid
-     const departureTimeBack = pointDepartureBack.departureDate
-     //обратно прибытие
-     const arrivalPointBack: Segments = portionFlights[0].legs[1].segments[1]
-     const arrivalCityBack = arrivalPointBack.arrivalCity?.caption
-     const arrivalAirportBack = arrivalPointBack.arrivalAirport.caption
-     const arrivalUidBack = arrivalPointBack.arrivalAirport.uid
-     const arrivalTimeBack = arrivalPointBack.arrivalDate*/
-
-    /*for (let i = 0; i < twoFlightData.length; i++) {
-        const dataInOneDirection = twoFlightData[i] as Omit<DataPromise, 'time'>
-        if (i === 0) {
-            formatTimeDisplay(dataInOneDirection.thereBack.)
-        }
-
-     }*/
-    //const time = formatTimeDisplay(duration, departureTime, arrivalTime)
-
-    /*const data: DataPromise = {
-        time,
-        thereBack: {
-            amountThereBack,
-            currencyCodeThereBack,
-            adultThereBack,
-            passengerCountThereBack,
-            carrier
-        },
-        departureThere: {
-            departureCityThere,
-            departureAirportThere,
-            departureUidThere,
-        },
-        arrivalThere: {
-            arrivalCityThere,
-            arrivalAirportThere,
-            arrivalUidThere,
-        },
-        departureBack: {
-            departureCityBack,
-            departureAirportBack,
-            departureUidBack,
-        },
-        arrivalBack: {
-            arrivalCityBack,
-            arrivalAirportBack,
-            arrivalUidBack
-        }
-    }*/
-
 
     return twoFlightData as DataPromise[]
 }
