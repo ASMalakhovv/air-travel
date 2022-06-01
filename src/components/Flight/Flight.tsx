@@ -32,6 +32,7 @@ export const Flight = React.memo(({id, ...props}: PropsType) => {
             departureData={f.departureTimeData.data}
             arrivalData={f.arrivalTimeData.data}
             arrivalTime={f.arrivalTimeData.time}
+            transfer={f.transfer}
         />
     }))
     //action

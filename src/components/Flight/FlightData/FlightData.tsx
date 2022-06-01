@@ -17,6 +17,7 @@ type PropsType = {
     departureData: string
     arrivalTime: string
     arrivalData: string
+    transfer:boolean
 
 }
 
@@ -34,6 +35,7 @@ export const FlightData = React.memo((
         departureData,
         arrivalTime,
         arrivalData,
+        transfer,
         ...props
     }: PropsType) => {
     const peresadka = true
@@ -54,7 +56,7 @@ export const FlightData = React.memo((
             flightTime={flightTime}
             departureTime={departureTime}
             />
-            {peresadka && <Transfer/>}
+            {transfer && <Transfer/>}
             <Footer carrier={carrier}/>
         </div>
     );

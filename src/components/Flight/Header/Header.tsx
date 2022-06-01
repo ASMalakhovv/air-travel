@@ -27,7 +27,7 @@ export const Header = React.memo((
             </div>
             <div className={s.price}>
                 <h3>{amount} {currencyCode}</h3>
-                <p>Стоимость для {passengerCountThereBack} {age?.toLowerCase()} пассажира</p>
+                <p>Стоимость для одного взрослого пассажира</p>
             </div>
         </div>
     );

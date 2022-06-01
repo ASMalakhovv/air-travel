@@ -1,5 +1,5 @@
 import flights from '../state/flights.json'
-import {AirTravel, Flight, Segments} from "../entities/entities";
+import {AirTravel, Flight, FlightOption, Segments} from "../entities/entities";
 import {v1} from 'uuid';
 import {FilterOptionsType} from "../components/Filtration/FilterOption/filterOptionReducer";
 import {airlinesID, filtrationID, priceID, sortingID} from "../components/Filtration/filtrationReducer";
@@ -29,6 +29,7 @@ export type DataPromise = {
             time: string
             data: string
         }
+        transfer:boolean
     }
     arrivalThere: {
         arrivalCityThere: string | undefined
@@ -50,6 +51,7 @@ export type DataPromise = {
             time: string
             data: string
         }
+        transfer:boolean
     }
     arrivalBack: {
         arrivalCityBack: string | undefined
@@ -107,7 +109,13 @@ export const getArrayFlights = async (count: number, setting: FilterOptionsType)
         }
     }
     if (setting[airlinesID].length > 0) {
-
+        let selectedAirlines: FlightOption[] = []
+        setting[airlinesID].forEach(a => {
+            selectedAirlines = [...selectedAirlines, ...arrayFlightsSort.filter(f => {
+                return f.flight.carrier.caption === a.title
+            })]
+        })
+        arrayFlightsSort = [...selectedAirlines]
     }
 
     for (let i = count - 2; i < count; i++) {  //здесь как вариант можно делать сортировку и наполнять его
@@ -143,6 +151,7 @@ export const getArrayFlights = async (count: number, setting: FilterOptionsType)
                     departureUidThere: firstSegment[0].departureAirport.uid,
                     departureTimeThere: firstSegment[0].departureDate,
                     duration: String(portionFlights[i].legs[0].duration),
+                    transfer:true
                 },
                 //туда прибытие
                 arrivalThere: {
@@ -163,6 +172,7 @@ export const getArrayFlights = async (count: number, setting: FilterOptionsType)
                     departureUidThere: firstSegment[0].departureAirport.uid,
                     departureTimeThere: firstSegment[0].departureDate,
                     duration: String(portionFlights[i].legs[0].duration),
+                    transfer:false
                 },
                 //туда прибытие
                 arrivalThere: {
@@ -183,6 +193,7 @@ export const getArrayFlights = async (count: number, setting: FilterOptionsType)
                     departureUidBack: secondSegment[0].departureAirport.uid,
                     departureTimeBack: secondSegment[0].departureDate,
                     duration: String(portionFlights[i].legs[1].duration),
+                    transfer:true
                 },
                 //обратно прибытие
                 arrivalBack: {
@@ -203,6 +214,7 @@ export const getArrayFlights = async (count: number, setting: FilterOptionsType)
                     departureUidBack: secondSegment[0].departureAirport.uid,
                     departureTimeBack: secondSegment[0].departureDate,
                     duration: String(portionFlights[i].legs[1].duration),
+                    transfer:false
                 },
                 //обратно прибытие
                 arrivalBack: {
